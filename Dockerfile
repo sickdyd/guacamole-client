@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y firefox
 # argument will be provided to explicitly unskip any skipped tests. To, for
 # example, allow the building of the RADIUS auth extension, pass a build profile
 # as well: `--build-arg MAVEN_ARGUMENTS="-P lgpl-extensions -DskipTests=false"`.
-ARG MAVEN_ARGUMENTS="-DskipTests=false"
+ARG MAVEN_ARGUMENTS="-DskipTests=false -Drat.numUnapprovedLicenses=100"
 
 # Versions of JDBC drivers to bundle within image
 ARG MSSQL_JDBC_VERSION=9.4.1
@@ -95,6 +95,9 @@ RUN useradd --system --create-home --shell /usr/sbin/nologin --uid $UID --gid $G
 
 # Run with user guacamole
 USER guacamole
+
+COPY ./noauth/guacamole-auth-noauth-0.9.14.jar /home/guacamole/.guacamole/extensions
+COPY ./noauth/noauth-config.xml /home/guacamole/.guacamole/extensions
 
 # Environment variable defaults
 ENV BAN_ENABLED=true \

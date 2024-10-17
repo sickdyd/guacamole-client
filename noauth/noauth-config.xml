@@ -1,0 +1,6 @@
+<configs>
+    <config name="myconfig" protocol="vnc">
+        <param name="hostname" value="172.16.80.41" />
+        <param name="port" value="5900" />
+    </config>
+</configs>
